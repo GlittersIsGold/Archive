@@ -15,6 +15,7 @@
           <Property Name="Sector" Type="int" Nullable="false" />
           <Property Name="SectorSerialNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsFilled" Type="bit" Nullable="false" />
+          <Property Name="PiecesInSector" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -24,7 +25,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ThirdName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ClientOfferrings">
           <Key>
@@ -48,6 +49,13 @@
           <Property Name="Place" Type="int" Nullable="false" />
           <Property Name="AvalablePieces" Type="int" Nullable="false" />
           <Property Name="DateRegistered" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentTheme">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -83,7 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_Archive">
+        <Association Name="FK_Document_Archive1">
           <End Role="Archive" Type="Self.Archive" Multiplicity="1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -95,42 +103,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Association Name="FK_Document_DocumentTheme">
+          <End Role="DocumentTheme" Type="Self.DocumentTheme" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentTheme">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="Theme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище ArchiveModelContainer">
           <EntitySet Name="Archive" EntityType="Self.Archive" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientOfferrings" EntityType="Self.ClientOfferrings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentTheme" EntityType="Self.DocumentTheme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ClientOfferrings_Client" Association="Self.FK_ClientOfferrings_Client">
             <End Role="Client" EntitySet="Client" />
@@ -140,8 +130,12 @@
             <End Role="Document" EntitySet="Document" />
             <End Role="ClientOfferrings" EntitySet="ClientOfferrings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Document_Archive" Association="Self.FK_Document_Archive">
+          <AssociationSet Name="FK_Document_Archive1" Association="Self.FK_Document_Archive1">
             <End Role="Archive" EntitySet="Archive" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocumentTheme" Association="Self.FK_Document_DocumentTheme">
+            <End Role="DocumentTheme" EntitySet="DocumentTheme" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
         </EntityContainer>
@@ -160,7 +154,8 @@
           <Property Name="Sector" Type="Int32" Nullable="false" />
           <Property Name="SectorSerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsFilled" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_Archive" FromRole="Archive" ToRole="Document" />
+          <Property Name="PiecesInSector" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="Self.FK_Document_Archive1" FromRole="Archive" ToRole="Document" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -170,7 +165,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ThirdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ClientOfferrings" Relationship="Self.FK_ClientOfferrings_Client" FromRole="Client" ToRole="ClientOfferrings" />
         </EntityType>
         <EntityType Name="ClientOfferrings">
@@ -197,8 +192,17 @@
           <Property Name="Place" Type="Int32" Nullable="false" />
           <Property Name="AvalablePieces" Type="Int32" Nullable="false" />
           <Property Name="DateRegistered" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Archive" Relationship="Self.FK_Document_Archive" FromRole="Document" ToRole="Archive" />
+          <NavigationProperty Name="Archive" Relationship="Self.FK_Document_Archive1" FromRole="Document" ToRole="Archive" />
           <NavigationProperty Name="ClientOfferrings" Relationship="Self.FK_ClientOfferrings_Document" FromRole="Document" ToRole="ClientOfferrings" />
+          <NavigationProperty Name="DocumentTheme" Relationship="Self.FK_Document_DocumentTheme" FromRole="Document" ToRole="DocumentTheme" />
+        </EntityType>
+        <EntityType Name="DocumentTheme">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Document" Relationship="Self.FK_Document_DocumentTheme" FromRole="DocumentTheme" ToRole="Document" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -210,7 +214,7 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Document_Archive">
+        <Association Name="FK_Document_Archive1">
           <End Role="Archive" Type="Self.Archive" Multiplicity="1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -246,13 +250,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Document_DocumentTheme">
+          <End Role="DocumentTheme" Type="Self.DocumentTheme" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentTheme">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="Theme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ArchiveEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Archive" EntityType="Self.Archive" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="ClientOfferrings" EntityType="Self.ClientOfferrings" />
           <EntitySet Name="Document" EntityType="Self.Document" />
+          <EntitySet Name="DocumentTheme" EntityType="Self.DocumentTheme" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Document_Archive" Association="Self.FK_Document_Archive">
+          <AssociationSet Name="FK_Document_Archive1" Association="Self.FK_Document_Archive1">
             <End Role="Archive" EntitySet="Archive" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
@@ -264,48 +281,11 @@
             <End Role="Document" EntitySet="Document" />
             <End Role="ClientOfferrings" EntitySet="ClientOfferrings" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ArchiveModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ArchiveModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK_Document_DocumentTheme" Association="Self.FK_Document_DocumentTheme">
+            <End Role="DocumentTheme" EntitySet="DocumentTheme" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -321,6 +301,7 @@
                 <ScalarProperty Name="Sector" ColumnName="Sector" />
                 <ScalarProperty Name="SectorSerialNumber" ColumnName="SectorSerialNumber" />
                 <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+                <ScalarProperty Name="PiecesInSector" ColumnName="PiecesInSector" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -360,6 +341,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DocumentTheme">
+            <EntityTypeMapping TypeName="ArchiveModel.DocumentTheme">
+              <MappingFragment StoreEntitySet="DocumentTheme">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ArchiveModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -371,30 +360,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище ArchiveModel.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище ArchiveModel.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище ArchiveModel.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище ArchiveModel.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ArchiveModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище ArchiveModel.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ArchiveModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище ArchiveModel.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище ArchiveModel.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

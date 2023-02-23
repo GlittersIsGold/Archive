@@ -9,6 +9,6 @@ namespace Archive.Controller
 {
 	internal class ClassDataRequest
 	{
-		public static ArchiveEntities ArchiveEntities { get; set; }
+		public static ArchiveEntities ArchiveEntities { get; set; } = new ArchiveEntities();
 	}
 }

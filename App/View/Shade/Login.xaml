@@ -9,7 +9,7 @@
       Title="Вход">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
             <TextBlock Text="Логин" HorizontalAlignment="Left"/>
             <TextBox Name="TbLogin"/>
             <TextBlock Text="Пароль" HorizontalAlignment="Left"/>

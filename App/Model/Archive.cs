@@ -26,6 +26,7 @@ namespace Archive.Model
         public int Sector { get; set; }
         public string SectorSerialNumber { get; set; }
         public bool IsFilled { get; set; }
+        public int PiecesInSector { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Document { get; set; }

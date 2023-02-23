@@ -31,5 +31,6 @@ namespace Archive.Model
         public virtual Archive Archive { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientOfferrings> ClientOfferrings { get; set; }
+        public virtual DocumentTheme DocumentTheme { get; set; }
     }
 }

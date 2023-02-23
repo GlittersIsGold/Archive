@@ -78,6 +78,9 @@
     <Compile Include="Model\Document.cs">
       <DependentUpon>ModelArchive.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DocumentTheme.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ModelArchive.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,12 +95,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelArchive.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ModelArchive.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ModelArchive.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\sysdiagrams.cs">
       <DependentUpon>ModelArchive.tt</DependentUpon>
@@ -193,19 +190,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\ModelArchive.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelArchive.Context.cs</LastGenOutput>
       <DependentUpon>ModelArchive.edmx</DependentUpon>
+      <LastGenOutput>ModelArchive.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model\ModelArchive.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelArchive.edmx</DependentUpon>
       <LastGenOutput>ModelArchive.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

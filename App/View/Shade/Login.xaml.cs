@@ -25,6 +25,8 @@ namespace Archive.View.Shade
 		public Login()
 		{
 			InitializeComponent();
+			TbLogin.Text = "1";
+			PbLogin.Password = "1";
 		}
 
 		private void BtnLogin_Click(object sender, RoutedEventArgs e)
