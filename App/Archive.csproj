@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +64,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Archive.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Client.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ClientOfferrings.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Document.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelArchive.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelArchive.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelArchive.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelArchive.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelArchive.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysdiagrams.cs">
+      <DependentUpon>ModelArchive.tt</DependentUpon>
+    </Compile>
     <Compile Include="View\Pane\Exception.xaml.cs">
       <DependentUpon>Exception.xaml</DependentUpon>
     </Compile>
@@ -121,6 +166,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="Model\ModelArchive.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelArchive.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\ModelArchive.edmx.diagram">
+      <DependentUpon>ModelArchive.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -131,7 +184,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
-    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\ModelArchive.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelArchive.Context.cs</LastGenOutput>
+      <DependentUpon>ModelArchive.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\ModelArchive.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelArchive.edmx</DependentUpon>
+      <LastGenOutput>ModelArchive.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
