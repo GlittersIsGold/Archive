@@ -14,7 +14,12 @@
             <TextBox Name="TbLogin"/>
             <TextBlock Text="Пароль" HorizontalAlignment="Left"/>
             <PasswordBox Name="PbLogin"/>
-            <Button Name="BtnLogin" Content="Войти" Width="120" Height="35"/>
+            <Button 
+                Name="BtnLogin" 
+                Click="BtnLogin_Click"
+                Content="Войти" 
+                Width="120" 
+                Height="35"/>
         </StackPanel>
     </Grid>
 </Page>

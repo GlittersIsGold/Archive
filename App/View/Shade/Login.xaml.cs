@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Archive.Controller;
+using Archive.View.Pane;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,23 @@ namespace Archive.View.Shade
 		public Login()
 		{
 			InitializeComponent();
+		}
+
+		private void BtnLogin_Click(object sender, RoutedEventArgs e)
+		{
+			if (PbLogin.Password == "1" && TbLogin.Text == "1")
+			{
+				ClassNavigation.Navigator.Navigate(new Archive());
+			}
+			else
+			{
+				WindowException exception = new WindowException();
+				exception.TbExHeader.Text = "Ошибка при входе";
+				exception.RunExHeader.Text = "Введены неверные данные";
+				exception.RunExBody.Text = "Проверьте правильность данных";
+				exception.RunExFooter.Text = "Обратитесь в службу поддержки";
+				exception.Show();
+			}
 		}
 	}
 }

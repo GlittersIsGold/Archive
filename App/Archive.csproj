@@ -64,6 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\ClassDataRequest.cs" />
+    <Compile Include="Controller\ClassNavigation.cs" />
     <Compile Include="Model\Archive.cs">
       <DependentUpon>ModelArchive.tt</DependentUpon>
     </Compile>
@@ -103,6 +105,9 @@
     <Compile Include="View\Pane\Exception.xaml.cs">
       <DependentUpon>Exception.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pane\WindowException.xaml.cs">
+      <DependentUpon>WindowException.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Shade\Archive.xaml.cs">
       <DependentUpon>Archive.xaml</DependentUpon>
     </Compile>
@@ -128,6 +133,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Pane\Exception.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Pane\WindowException.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,9 +191,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\ModelArchive.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

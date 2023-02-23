@@ -1,0 +1,42 @@
+﻿<Window x:Class="Archive.View.Pane.WindowException"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Archive.View.Pane"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Title="Ошибка" Height="200" Width="315">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="TbExHeader" Text="..."/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock>
+                <Run Text="..." Name="RunExHeader"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="..." Name="RunExBody"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="..." Name="RunExFooter"/>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Button 
+                Name="BtProceedError"
+                Click="BtProceedError_Click"
+                Content="Ок"
+                Width="80"
+                Height="35"
+                />
+        </StackPanel>
+    </Grid>
+</Window>

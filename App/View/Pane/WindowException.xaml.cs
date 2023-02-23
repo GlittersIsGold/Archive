@@ -1,6 +1,4 @@
-﻿using Archive.Controller;
-using Archive.View.Shade;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,21 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Archive
+namespace Archive.View.Pane
 {
 	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
+	/// Логика взаимодействия для WindowException.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class WindowException : Window
 	{
-		public MainWindow()
+		public WindowException()
 		{
 			InitializeComponent();
-			ClassNavigation.Navigator = FrmMain;
-			FrmMain.Navigate(new Login());
 		}
-	}
+
+		private void BtProceedError_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+    }
 }
