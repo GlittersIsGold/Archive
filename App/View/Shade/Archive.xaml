@@ -39,7 +39,7 @@
                 />
             <Button 
                 Name="BtnArchive" 
-                Content="Архивы"
+                Content="Архив"
                 Click="BtnArchive_Click"
                 />
         </StackPanel>

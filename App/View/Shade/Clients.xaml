@@ -24,19 +24,19 @@
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Button 
                 Name="BtnDocument" 
-                Content="Документы"
+                Content="Документы" Click="BtnDocument_Click"
                 />
             <Button 
                 Name="BtnClient" 
-                Content="Клиенты"
+                Content="Клиенты" Click="BtnClient_Click"
                 />
             <Button 
                 Name="BtnOffer" 
-                Content="Заказ"
+                Content="Заказ" Click="BtnOffer_Click"
                 />
             <Button 
                 Name="BtnArchive" 
-                Content="Архивы"
+                Content="Архив" Click="BtnArchive_Click"
                 />
         </StackPanel>
 
@@ -46,7 +46,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1">
             <DataGrid
-                Name="DgArchive"
+                Name="DgClients"
                 IsReadOnly="True"
                 AutoGenerateColumns="False"
                 Background="Transparent"
@@ -57,29 +57,21 @@
                         Binding="{Binding Id}" 
                         Width="0.5*"/>
                     <DataGridTextColumn 
-                        Header="Рейка" 
-                        Binding="{Binding Shelf}" 
-                        Width="0.8*"/>
+                        Header="Имя" 
+                        Binding="{Binding Name}" 
+                        Width="*"/>
                     <DataGridTextColumn 
-                        Header="Полка" 
-                        Binding="{Binding Ledge}" 
-                        Width="0.8*"/>
+                        Header="Фамилия" 
+                        Binding="{Binding SecondName}" 
+                        Width="*"/>
                     <DataGridTextColumn 
-                        Header="Сектор" 
-                        Binding="{Binding Sector}" 
-                        Width="0.8*"/>
+                        Header="Отчество" 
+                        Binding="{Binding ThirdName}" 
+                        Width="*"/>
                     <DataGridTextColumn 
-                        Header="С/Н" 
-                        Binding="{Binding SectorSerialNumber}" 
+                        Header="Телефон" 
+                        Binding="{Binding PhoneNumber}" 
                         Width="2*"/>
-                    <DataGridTextColumn 
-                        Header="Заполнена" 
-                        Binding="{Binding IsFilled}" 
-                        Width="*"/>
-                    <DataGridTextColumn 
-                        Header="Кол." 
-                        Binding="{Binding PiecesInSector}" 
-                        Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -98,12 +90,12 @@
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock>
-                <Run Text="Найдено документов:" Name="RunFoundDocs"/>
-                <Run Text="" Name="RunFoundDocsCount"/>
+                <Run Text="Найдено клиентов:" Name="RunFound"/>
+                <Run Text="" Name="RunFoundCount"/>
             </TextBlock>
             <TextBlock>
-                <Run Text="Всего документов:" Name="RunTotalDocs"/>
-                <Run Text="" Name="RunTotalDocsCount"/>
+                <Run Text="Всего клиентов:" Name="RunTotal"/>
+                <Run Text="" Name="RunTotalCount"/>
             </TextBlock>
         </StackPanel>
     </Grid>

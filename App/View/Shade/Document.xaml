@@ -24,24 +24,24 @@
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Button 
                 Name="BtnDocument" 
-                Content="Документы"
+                Content="Документы" Click="BtnDocument_Click"
                 />
             <Button 
                 Name="BtnClient" 
-                Content="Клиенты"
+                Content="Клиенты" Click="BtnClient_Click"
                 />
             <Button 
                 Name="BtnOffer" 
-                Content="Заказ"
+                Content="Заказ" Click="BtnOffer_Click"
                 />
             <Button 
                 Name="BtnArchive" 
-                Content="Архивы"
+                Content="Архив" Click="BtnArchive_Click"
                 />
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Документы архива"/>
+            <TextBlock Text="Документы"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
@@ -57,29 +57,29 @@
                         Binding="{Binding Id}" 
                         Width="0.5*"/>
                     <DataGridTextColumn 
-                        Header="Рейка" 
-                        Binding="{Binding Shelf}" 
-                        Width="0.8*"/>
+                        Header="Название" 
+                        Binding="{Binding Name}" 
+                        Width="1.1*"/>
                     <DataGridTextColumn 
-                        Header="Полка" 
-                        Binding="{Binding Ledge}" 
-                        Width="0.8*"/>
+                        Header="Тема" 
+                        Binding="{Binding Theme}" 
+                        Width="0.7*"/>
                     <DataGridTextColumn 
                         Header="Сектор" 
-                        Binding="{Binding Sector}" 
-                        Width="0.8*"/>
+                        Binding="{Binding SerialNumber}" 
+                        Width="0.85*"/>
                     <DataGridTextColumn 
                         Header="С/Н" 
-                        Binding="{Binding SectorSerialNumber}" 
-                        Width="2*"/>
+                        Binding="{Binding Place}" 
+                        Width="1.5*"/>
                     <DataGridTextColumn 
-                        Header="Заполнена" 
-                        Binding="{Binding IsFilled}" 
+                        Header="Доступно" 
+                        Binding="{Binding AvalablePieces}" 
                         Width="*"/>
                     <DataGridTextColumn 
-                        Header="Кол." 
-                        Binding="{Binding PiecesInSector}" 
-                        Width="*"/>
+                        Header="Получены" 
+                        Binding="{Binding DateRegistered}" 
+                        Width="1.1*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

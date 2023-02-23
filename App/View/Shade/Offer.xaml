@@ -9,6 +9,102 @@
       Title="Заказ">
 
     <Grid>
-        <TextBlock Text="Оформление документа"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button 
+                Name="BtnDocument" 
+                Content="Документы" Click="BtnDocument_Click"
+                />
+            <Button 
+                Name="BtnClient" 
+                Content="Клиенты" Click="BtnClient_Click"
+                />
+            <Button 
+                Name="BtnOffer" 
+                Content="Заказ" Click="BtnOffer_Click"
+                />
+            <Button 
+                Name="BtnArchive" 
+                Content="Архив" Click="BtnArchive_Click"
+                />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Заказы"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <DataGrid
+                Name="DgOffers"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                Background="Transparent"
+                >
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Header="Ид"
+                        Binding="{Binding Id}" 
+                        Width="0.5*"/>
+                    <DataGridTextColumn 
+                        Header="Документ" 
+                        Binding="{Binding Document.Name}" 
+                        Width="*"/>
+                    <DataGridTextColumn 
+                        Header="Клиент" 
+                        Binding="{Binding Client.Name}" 
+                        Width="*"/>
+                    <DataGridTextColumn 
+                        Header="Выдан" 
+                        Binding="{Binding DateGiven}" 
+                        Width="*"/>
+                    <DataGridTextColumn 
+                        Header="Возврат" 
+                        Binding="{Binding DateReturn}" 
+                        Width="*"/>
+                    <DataGridTextColumn 
+                        Header="Просрочен" 
+                        Binding="{Binding IsOverdue}" 
+                        Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <TextBlock Text="Сортировка:"/>
+            <Button 
+                Name="BtShowNullSectors" 
+                Content="Популярные"
+                />
+            <Button 
+                Name="BtShowFullSectors" 
+                Content="Последние"
+                />
+            <Button 
+                Name="BtShowRare" 
+                Content="Редкие"
+                />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock>
+                <Run Text="Найдено заказов:" Name="RunFoundDocs"/>
+                <Run Text="" Name="RunFoundDocsCount"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Всего заказов:" Name="RunTotalDocs"/>
+                <Run Text="" Name="RunTotalDocsCount"/>
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

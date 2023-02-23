@@ -54,22 +54,22 @@ namespace Archive.View.Shade
 
 		private void BtnDocument_Click(object sender, RoutedEventArgs e)
 		{
-
+			ClassNavigation.Navigator.Navigate(new Document());
 		}
 
 		private void BtnClient_Click(object sender, RoutedEventArgs e)
 		{
-
+			ClassNavigation.Navigator.Navigate(new Clients());
 		}
 
 		private void BtnOffer_Click(object sender, RoutedEventArgs e)
 		{
-
+			ClassNavigation.Navigator.Navigate(new Offer());
 		}
 
 		private void BtnArchive_Click(object sender, RoutedEventArgs e)
 		{
-
+			ClassNavigation.Navigator.Navigate(new Archive());
 		}
 
 		private void BtShowFullSectors_Click(object sender, RoutedEventArgs e)
