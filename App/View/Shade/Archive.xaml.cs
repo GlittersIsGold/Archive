@@ -23,6 +23,9 @@ namespace Archive.View.Shade
 	/// </summary>
 	public partial class Archive : Page
 	{
+		private int FiltersUsed = 0;
+		
+
 		public Archive()
 		{
 			InitializeComponent();
@@ -45,6 +48,8 @@ namespace Archive.View.Shade
 				exception.RunExFooter.Text = "Обратитесь в службу поддержки";
 				exception.Show();
 			}
+			
+			RunTotalFiltersCount.Text = FiltersUsed.ToString();
 		}
 
 		private void BtnDocument_Click(object sender, RoutedEventArgs e)
@@ -69,7 +74,69 @@ namespace Archive.View.Shade
 
 		private void BtShowFullSectors_Click(object sender, RoutedEventArgs e)
 		{
+			var FullfilledSectors = ClassDataRequest.ArchiveEntities.Archive.OrderByDescending(f => f.PiecesInSector).ToList();
 
+			if (FullfilledSectors != null)
+			{
+				DgArchive.ItemsSource = FullfilledSectors;
+			}
+			else
+			{
+				MessageBox.Show("Не найдено пустых ячеек на полках архива", Name);
+			}
+
+			RunFoundDocsCount.Text = FullfilledSectors.Count().ToString();
+
+			FiltersUsed++;
+			
+			RunTotalFiltersCount.Text = FiltersUsed.ToString();
+		}
+
+		private void BtShowNullSectors_Click(object sender, RoutedEventArgs e)
+		{
+
+			var NullSectors = ClassDataRequest.ArchiveEntities.Archive.ToList().Where(x => x.IsFilled == false);
+
+			if (NullSectors != null)
+			{
+				DgArchive.ItemsSource = NullSectors;
+			}
+			else
+			{
+				MessageBox.Show("Не найдено пустых ячеек на полках архива", Name);
+			}
+
+			RunFoundDocsCount.Text = NullSectors.Count().ToString();
+			
+			FiltersUsed++;
+
+			RunTotalFiltersCount.Text = FiltersUsed.ToString();
+		}
+
+		private void BtResetFilters_Click(object sender, RoutedEventArgs e)
+		{
+			var ArchiveData = ClassDataRequest.ArchiveEntities.Archive.ToList();
+
+			if (ArchiveData != null)
+			{
+				DgArchive.ItemsSource = ArchiveData;
+
+				RunFoundDocsCount.Text = ArchiveData.Count.ToString();
+				RunTotalDocsCount.Text = ArchiveData.Count.ToString();
+			}
+			else
+			{
+				WindowException exception = new WindowException();
+				exception.TbExHeader.Text = "Ошибка";
+				exception.RunExHeader.Text = "При полученнии данных";
+				exception.RunExBody.Text = "не удалось обработать запрос";
+				exception.RunExFooter.Text = "Обратитесь в службу поддержки";
+				exception.Show();
+			}
+
+			FiltersUsed = 0;
+
+			RunTotalFiltersCount.Text = FiltersUsed.ToString();
 		}
 	}
 }

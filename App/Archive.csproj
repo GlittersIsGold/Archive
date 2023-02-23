@@ -108,6 +108,9 @@
     <Compile Include="View\Shade\Archive.xaml.cs">
       <DependentUpon>Archive.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Shade\Clients.xaml.cs">
+      <DependentUpon>Clients.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Shade\Document.xaml.cs">
       <DependentUpon>Document.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Shade\Archive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Shade\Clients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

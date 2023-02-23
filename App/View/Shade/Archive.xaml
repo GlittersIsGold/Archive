@@ -92,12 +92,17 @@
             <TextBlock Text="Сортировка:"/>
             <Button 
                 Name="BtShowNullSectors" 
-                Content="Пустые"
+                Content="Пустые" Click="BtShowNullSectors_Click"
                 />
             <Button 
                 Name="BtShowFullSectors" 
                 Content="Заполненные"
                 Click="BtShowFullSectors_Click"
+                />
+            <Button 
+                Name="BtResetFilters" 
+                Content="Сбросить всё"
+                Click="BtResetFilters_Click"
                 />
         </StackPanel>
 
@@ -109,6 +114,11 @@
             <TextBlock>
                 <Run Text="Всего документов:" Name="RunTotalDocs"/>
                 <Run Text="" Name="RunTotalDocsCount"/>
+            </TextBlock>
+            
+            <TextBlock>
+                <Run Text="Фильтров применено:" Name="RunTotalFilters"/>
+                <Run Text="" Name="RunTotalFiltersCount"/>
             </TextBlock>
         </StackPanel>
     </Grid>

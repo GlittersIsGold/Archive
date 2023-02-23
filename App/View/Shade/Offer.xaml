@@ -9,6 +9,6 @@
       Title="Заказ">
 
     <Grid>
-        
+        <TextBlock Text="Оформление документа"/>
     </Grid>
 </Page>

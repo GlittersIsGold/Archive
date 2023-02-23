@@ -34,3 +34,5 @@ C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\A
 C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\Archive.pdb
 C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\View\Pane\WindowException.g.cs
 C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\View\Pane\WindowException.baml
+C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\View\Shade\Clients.g.cs
+C:\Users\shelb\OneDrive\Рабочий стол\GitRepos\Archive\App\obj\Debug\View\Shade\Clients.baml
